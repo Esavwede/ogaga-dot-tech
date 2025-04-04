@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio Website</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      }
+
+      body {
+        background-color: #333333;
+        color: white;
+        line-height: 1.6;
+      }
+
+      /* Hero Section Styles */
+      .hero-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .grid-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: 40px 40px;
+        background-image: linear-gradient(
+            to right,
+            rgba(21, 228, 241, 0.05) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(21, 228, 241, 0.05) 1px,
+            transparent 1px
+          );
+        transform: perspective(1000px) rotateX(60deg);
+        transform-origin: center top;
+        animation: grid-animation 20s linear infinite;
+      }
+
+      @keyframes grid-animation {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 40px 40px;
+        }
+      }
+
+      .content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        position: relative;
+        z-index: 10;
+        width: 100%;
+      }
+
+      .hero-text {
+        max-width: 650px;
+      }
+
+      h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+      }
+
+      .highlight {
+        color: #15e4f1;
+        text-shadow: 0 0 15px rgba(21, 228, 241, 0.5);
+      }
+
+      p {
+        font-size: 1.25rem;
+        margin-bottom: 2.5rem;
+        font-weight: 300;
+        max-width: 540px;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .btn-primary {
+        background-color: #15e4f1;
+        color: #333333;
+        border: none;
+        box-shadow: 0 0 15px rgba(21, 228, 241, 0.5);
+      }
+
+      .btn-primary:hover {
+        background-color: #15e4f1;
+        transform: translateY(-3px);
+        box-shadow: 0 0 20px rgba(21, 228, 241, 0.7);
+      }
+
+      .btn-secondary {
+        background-color: transparent;
+        color: #ffffff;
+        border: 2px solid #15e4f1;
+      }
+
+      .btn-secondary:hover {
+        background-color: rgba(21, 228, 241, 0.1);
+        transform: translateY(-3px);
+      }
+
+      .hero-image {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 45%;
+        height: auto;
+        opacity: 0.85;
+        animation: float 6s ease-in-out infinite;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .tech-circle {
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        border: 2px solid rgba(21, 228, 241, 0.3);
+        position: relative;
+        animation: rotate 20s linear infinite;
+      }
+
+      .tech-circle::before {
+        content: "";
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        border: 2px solid rgba(21, 228, 241, 0.3);
+        top: 50px;
+        left: 50px;
+        animation: rotate-reverse 15s linear infinite;
+      }
+
+      .tech-circle::after {
+        content: "";
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        border: 2px solid rgba(21, 228, 241, 0.3);
+        top: 100px;
+        left: 100px;
+      }
+
+      .node {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: #15e4f1;
+        border-radius: 50%;
+        box-shadow: 0 0 15px rgba(21, 228, 241, 0.7);
+      }
+
+      .node:nth-child(1) {
+        top: 0;
+        left: 50%;
+      }
+      .node:nth-child(2) {
+        top: 50%;
+        right: 0;
+      }
+      .node:nth-child(3) {
+        bottom: 0;
+        left: 50%;
+      }
+      .node:nth-child(4) {
+        top: 50%;
+        left: 0;
+      }
+      .node:nth-child(5) {
+        top: 30%;
+        right: 10%;
+      }
+      .node:nth-child(6) {
+        bottom: 30%;
+        left: 10%;
+      }
+
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes rotate-reverse {
+        0% {
+          transform: rotate(360deg);
+        }
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(-50%) translateY(-20px);
+        }
+        50% {
+          transform: translateY(-50%) translateY(20px);
+        }
+      }
+
+      /* Experience Section Styles */
+      .experience-section {
+        background-color: #333333;
+        color: white;
+        padding: 6rem 2rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .experience-grid {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: 40px 40px;
+        background-image: linear-gradient(
+            to right,
+            rgba(21, 228, 241, 0.03) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(21, 228, 241, 0.03) 1px,
+            transparent 1px
+          );
+        z-index: 1;
+      }
+
+      .section-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        letter-spacing: -0.03em;
+      }
+
+      .section-subtitle {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto;
+        opacity: 0.8;
+      }
+
+      .timeline {
+        position: relative;
+        padding: 2rem 0;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 3px;
+        background: linear-gradient(
+          to bottom,
+          rgba(21, 228, 241, 0.3),
+          rgba(21, 228, 241, 0.8),
+          rgba(21, 228, 241, 0.3)
+        );
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 0 15px rgba(21, 228, 241, 0.5);
+        z-index: 1;
+      }
+
+      .timeline-item {
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 30px;
+        position: relative;
+        margin-bottom: 3.5rem;
+        width: 50%;
+      }
+
+      .timeline-item:nth-child(even) {
+        align-self: flex-end;
+        justify-content: flex-start;
+        padding-left: 30px;
+        padding-right: 0;
+        margin-left: 50%;
+        margin-top: -3.5rem;
+      }
+
+      .timeline-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .timeline-dot {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        background-color: #15e4f1;
+        border-radius: 50%;
+        top: 20px;
+        right: -8px;
+        box-shadow: 0 0 15px rgba(21, 228, 241, 0.7);
+        z-index: 2;
+      }
+
+      .timeline-item:nth-child(even) .timeline-dot {
+        right: auto;
+        left: -8px;
+      }
+
+      .timeline-content {
+        background-color: rgba(24, 26, 27, 0.8);
+        border-left: 3px solid #15e4f1;
+        border-radius: 5px;
+        padding: 1.5rem;
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        transform: translateY(20px);
+        opacity: 0;
+        animation: fade-up 0.5s ease forwards;
+        animation-delay: calc(var(--delay) * 0.2s);
+      }
+
+      .timeline-item:nth-child(1) .timeline-content {
+        --delay: 1;
+      }
+      .timeline-item:nth-child(2) .timeline-content {
+        --delay: 2;
+      }
+      .timeline-item:nth-child(3) .timeline-content {
+        --delay: 3;
+      }
+      .timeline-item:nth-child(4) .timeline-content {
+        --delay: 4;
+      }
+
+      .timeline-content:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      }
+
+      .timeline-period {
+        font-size: 0.9rem;
+        color: #15e4f1;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        letter-spacing: 1px;
+      }
+
+      .timeline-title {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+
+      .timeline-company {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        font-weight: 500;
+        opacity: 0.8;
+        margin-bottom: 1rem;
+      }
+
+      .timeline-desc {
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      .tech-tag {
+        display: inline-block;
+        background-color: rgba(21, 228, 241, 0.15);
+        border: 1px solid rgba(21, 228, 241, 0.3);
+        color: #15e4f1;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        padding: 0.2rem 0.8rem;
+        margin-right: 0.5rem;
+        margin-top: 0.7rem;
+        transition: all 0.2s ease;
+      }
+
+      .tech-tag:hover {
+        background-color: rgba(21, 228, 241, 0.25);
+        transform: translateY(-2px);
+      }
+
+      @keyframes fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Enhanced Responsive Styles */
+      /* Tablet Styles */
+      @media (max-width: 1200px) {
+        .hero-image {
+          width: 40%;
+        }
+
+        .tech-circle {
+          width: 400px;
+          height: 400px;
+        }
+
+        .tech-circle::before {
+          width: 300px;
+          height: 300px;
+          top: 50px;
+          left: 50px;
+        }
+
+        .tech-circle::after {
+          width: 200px;
+          height: 200px;
+          top: 100px;
+          left: 100px;
+        }
+
+        h1 {
+          font-size: 3rem;
+        }
+
+        .section-title {
+          font-size: 2.2rem;
+        }
+      }
+
+      /* Small Tablet Styles */
+      @media (max-width: 900px) {
+        h1 {
+          font-size: 2.8rem;
+        }
+
+        .hero-container {
+          flex-direction: column;
+          padding: 6rem 0;
+          min-height: auto;
+        }
+
+        .hero-image {
+          position: relative;
+          top: auto;
+          right: auto;
+          transform: none;
+          width: 100%;
+          margin-top: 4rem;
+          animation: float-mobile 6s ease-in-out infinite;
+        }
+
+        @keyframes float-mobile {
+          0%,
+          100% {
+            transform: translateY(-10px);
+          }
+          50% {
+            transform: translateY(10px);
+          }
+        }
+
+        .tech-circle {
+          width: 300px;
+          height: 300px;
+        }
+
+        .tech-circle::before {
+          width: 220px;
+          height: 220px;
+          top: 40px;
+          left: 40px;
+        }
+
+        .tech-circle::after {
+          width: 140px;
+          height: 140px;
+          top: 80px;
+          left: 80px;
+        }
+
+        /* Experience timeline mobile adjustment */
+        .timeline::before {
+          left: 30px;
+        }
+
+        .timeline-item {
+          width: 100%;
+          padding-left: 70px;
+          padding-right: 0;
+          justify-content: flex-start;
+        }
+
+        .timeline-item:nth-child(even) {
+          margin-left: 0;
+          padding-left: 70px;
+          margin-top: 0;
+          margin-bottom: 3.5rem;
+        }
+
+        .timeline-dot {
+          left: 22px;
+          right: auto;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+          left: 22px;
+        }
+
+        .timeline-content {
+          max-width: 100%;
+        }
+      }
+
+      /* Mobile Styles */
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 2.2rem;
+        }
+
+        p {
+          font-size: 1.1rem;
+        }
+
+        .tech-circle {
+          width: 250px;
+          height: 250px;
+        }
+
+        .tech-circle::before {
+          width: 180px;
+          height: 180px;
+          top: 35px;
+          left: 35px;
+        }
+
+        .tech-circle::after {
+          width: 120px;
+          height: 120px;
+          top: 65px;
+          left: 65px;
+        }
+
+        .node {
+          width: 15px;
+          height: 15px;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .section-subtitle {
+          font-size: 1rem;
+        }
+
+        .timeline-content {
+          padding: 1.2rem;
+        }
+
+        .timeline-title {
+          font-size: 1.2rem;
+        }
+
+        .timeline-company {
+          font-size: 1rem;
+        }
+
+        .timeline-desc {
+          font-size: 0.95rem;
+        }
+
+        .btn {
+          width: 100%;
+          margin-bottom: 0.5rem;
+        }
+
+        .cta-buttons {
+          flex-direction: column;
+        }
+
+        .experience-section {
+          padding: 4rem 1.5rem;
+        }
+      }
+
+      /* Extra Small Mobile Styles */
+      @media (max-width: 400px) {
+        h1 {
+          font-size: 1.8rem;
+        }
+
+        .tech-circle {
+          width: 200px;
+          height: 200px;
+        }
+
+        .tech-circle::before {
+          width: 150px;
+          height: 150px;
+          top: 25px;
+          left: 25px;
+        }
+
+        .tech-circle::after {
+          width: 100px;
+          height: 100px;
+          top: 50px;
+          left: 50px;
+        }
+
+        .section-title {
+          font-size: 1.7rem;
+        }
+
+        .content,
+        .section-container {
+          padding: 1.5rem 1rem;
+        }
+
+        .timeline-content {
+          padding: 1rem;
+        }
+
+        .timeline-item {
+          padding-left: 60px;
+        }
+
+        .timeline-item:nth-child(even) {
+          padding-left: 60px;
+        }
+      }
+
+      /* Portfolio Section Styles */
+      .portfolio-section {
+        background-color: #333333;
+        color: white;
+        padding: 6rem 2rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(550px, 1fr));
+        gap: 2.5rem;
+        margin-top: 3rem;
+      }
+
+      .portfolio-item {
+        background-color: rgba(24, 26, 27, 0.8);
+        border-radius: 5px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        animation: fade-up 0.5s ease forwards;
+        animation-delay: calc(var(--delay) * 0.2s);
+      }
+
+      .portfolio-item:nth-child(1) {
+        --delay: 1;
+      }
+      .portfolio-item:nth-child(2) {
+        --delay: 2;
+      }
+      .portfolio-item:nth-child(3) {
+        --delay: 3;
+      }
+      .portfolio-item:nth-child(4) {
+        --delay: 4;
+      }
+
+      .portfolio-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      }
+
+      .portfolio-image {
+        height: 250px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .portfolio-placeholder {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          145deg,
+          rgba(21, 228, 241, 0.3),
+          rgba(21, 228, 241, 0.1)
+        );
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .portfolio-placeholder::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(
+            45deg,
+            rgba(21, 228, 241, 0.05) 25%,
+            transparent 25%
+          ),
+          linear-gradient(-45deg, rgba(21, 228, 241, 0.05) 25%, transparent 25%),
+          linear-gradient(45deg, transparent 75%, rgba(21, 228, 241, 0.05) 75%),
+          linear-gradient(-45deg, transparent 75%, rgba(21, 228, 241, 0.05) 75%);
+        background-size: 20px 20px;
+        z-index: 1;
+      }
+
+      .portfolio-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+      }
+
+      .portfolio-item:hover .portfolio-overlay {
+        opacity: 1;
+      }
+
+      .portfolio-overlay-content {
+        text-align: center;
+        transform: translateY(20px);
+        transition: transform 0.3s ease;
+      }
+
+      .portfolio-item:hover .portfolio-overlay-content {
+        transform: translateY(0);
+      }
+
+      .portfolio-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .portfolio-link {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background-color: #15e4f1;
+        color: #333333;
+        text-decoration: none;
+        font-weight: 600;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+      }
+
+      .portfolio-link:hover {
+        background-color: #15e4f1;
+        box-shadow: 0 0 15px rgba(21, 228, 241, 0.7);
+        transform: translateY(-2px);
+      }
+
+      .portfolio-link:nth-child(2) {
+        background-color: transparent;
+        border: 2px solid #15e4f1;
+        color: #15e4f1;
+      }
+
+      .portfolio-link:nth-child(2):hover {
+        background-color: rgba(21, 228, 241, 0.1);
+      }
+
+      .portfolio-content {
+        padding: 1.5rem;
+      }
+
+      .portfolio-title {
+        font-size: 1.4rem;
+        margin-bottom: 0.75rem;
+        font-weight: 600;
+      }
+
+      .portfolio-desc {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        opacity: 0.9;
+      }
+
+      .portfolio-cta {
+        text-align: center;
+        margin-top: 4rem;
+      }
+
+      /* Responsive Styles for Portfolio Section */
+      @media (max-width: 1200px) {
+        .portfolio-grid {
+          grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+        }
+      }
+
+      @media (max-width: 900px) {
+        .portfolio-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .portfolio-section {
+          padding: 4rem 1.5rem;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .portfolio-image {
+          height: 200px;
+        }
+
+        .portfolio-content {
+          padding: 1.2rem;
+        }
+
+        .portfolio-title {
+          font-size: 1.2rem;
+        }
+
+        .portfolio-desc {
+          font-size: 0.95rem;
+        }
+
+        .portfolio-cta {
+          margin-top: 3rem;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .portfolio-image {
+          height: 180px;
+        }
+
+        .portfolio-content {
+          padding: 1rem;
+        }
+
+        .portfolio-links {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .portfolio-link {
+          padding: 0.6rem 1.2rem;
+          font-size: 0.85rem;
+        }
+      }
+
+      /* Contact Section Styles */
+      .contact-section {
+        background-color: #333333;
+        color: white;
+        padding: 6rem 2rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .contact-content {
+        display: flex;
+        gap: 4rem;
+        margin-top: 3rem;
+        flex-wrap: wrap;
+      }
+
+      .contact-form {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 1rem;
+        background-color: rgba(24, 26, 27, 0.8);
+        border: 2px solid rgba(21, 228, 241, 0.3);
+        border-radius: 4px;
+        color: white;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-input:focus {
+        outline: none;
+        border-color: #15e4f1;
+        box-shadow: 0 0 15px rgba(21, 228, 241, 0.5);
+      }
+
+      .form-input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .contact-info {
+        flex: 1;
+        min-width: 250px;
+      }
+
+      .info-item {
+        margin-bottom: 2rem;
+      }
+
+      .info-item h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        color: #15e4f1;
+      }
+
+      .info-item p {
+        font-size: 1rem;
+        opacity: 0.9;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .social-link {
+        color: #15e4f1;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border: 2px solid rgba(21, 228, 241, 0.3);
+        border-radius: 4px;
+        transition: all 0.3s ease;
+      }
+
+      .social-link:hover {
+        background-color: rgba(21, 228, 241, 0.1);
+        transform: translateY(-3px);
+        box-shadow: 0 0 15px rgba(21, 228, 241, 0.5);
+      }
+
+      /* Footer Section Styles */
+      .footer-section {
+        background-color: rgba(24, 26, 27, 0.95);
+        color: white;
+        padding: 4rem 2rem 2rem;
+        position: relative;
+      }
+
+      .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-brand h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: #15e4f1;
+      }
+
+      .footer-brand p {
+        font-size: 1rem;
+        opacity: 0.8;
+      }
+
+      .footer-social h4 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        color: #15e4f1;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(21, 228, 241, 0.2);
+        opacity: 0.7;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 900px) {
+        .contact-section {
+          padding: 4rem 1.5rem;
+        }
+
+        .contact-content {
+          flex-direction: column;
+          gap: 2rem;
+        }
+
+        .footer-content {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .footer-social .social-links {
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .contact-section {
+          padding: 3rem 1rem;
+        }
+
+        .footer-section {
+          padding: 3rem 1rem 1.5rem;
+        }
+
+        .footer-brand h3 {
+          font-size: 1.3rem;
+        }
+
+        .footer-social h4 {
+          font-size: 1.1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Hero Section -->
+    <section class="hero-container">
+      <div class="grid-background"></div>
+      <div class="content">
+        <div class="hero-text">
+          <h1>
+            Transforming Ideas into
+            <span class="highlight">Digital Reality</span>
+          </h1>
+          <p>
+            Hi, I'm Ogaga. I craft innovative products using cutting edge
+            technologies. Let's build something amazing together.
+          </p>
+          <div class="cta-buttons">
+            <a href="#projects" class="btn btn-primary">View My Work</a>
+            <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="tech-circle">
+          <div class="node"></div>
+          <div class="node"></div>
+          <div class="node"></div>
+          <div class="node"></div>
+          <div class="node"></div>
+          <div class="node"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience-section">
+      <div class="experience-grid"></div>
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title">
+            Professional <span class="highlight">Experience</span>
+          </h2>
+          <p class="section-subtitle">
+            My journey through tech and design, building innovative solutions
+            and growing as a professional.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <!-- Timeline Item 1 -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-period">MARCH 2025 - PRESENT</div>
+              <h3 class="timeline-title">Backend Developer Intern</h3>
+              <div class="timeline-company">Intern Pulse</div>
+              <p class="timeline-desc">
+                Led development of enterprise-level applications with focus on
+                scalability and performance. Mentored junior developers and
+                implemented modern CI/CD pipelines.
+              </p>
+              <div class="timeline-tags">
+                <span class="tech-tag">Node.Js</span>
+                <span class="tech-tag">Express</span>
+                <span class="tech-tag">Typescript</span>
+                <span class="tech-tag">MongoDB</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline Item 2 -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-period">FEB 2023 - JUNE 2023</div>
+              <h3 class="timeline-title">Backend Developer</h3>
+              <div class="timeline-company">Career Edu</div>
+              <p class="timeline-desc">
+                Developed responsive web applications and APIs for various
+                clients. Worked closely with UX designers to implement
+                pixel-perfect interfaces with smooth animations.
+              </p>
+              <div class="timeline-tags">
+                <span class="tech-tag">Node.Js</span>
+                <span class="tech-tag">MongoDB</span>
+                <span class="tech-tag">Javascript</span>
+                <span class="tech-tag">Express</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline Item 3 -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-period">MAY 2022 - JULY 2022</div>
+              <h3 class="timeline-title">Backend Developer Intern</h3>
+              <div class="timeline-company">Terra Learning</div>
+              <p class="timeline-desc">
+                Created responsive and interactive web experiences for startups
+                and established brands. Specialized in animations and
+                micro-interactions to enhance user experience.
+              </p>
+              <div class="timeline-tags">
+                <span class="tech-tag">Express</span>
+                <span class="tech-tag">Node.Js</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">APIs</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline Item 4 -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-period">April 2021 - July 2021</div>
+              <h3 class="timeline-title">Backend Developer Intern</h3>
+              <div class="timeline-company">Saru Tech</div>
+              <p class="timeline-desc">
+                Assisted senior developers in building web applications. Gained
+                hands-on experience with modern development workflows and
+                collaborated in an agile environment.
+              </p>
+              <div class="timeline-tags">
+                <span class="tech-tag">HTML/CSS/JS</span>
+                <span class="tech-tag">Node.Js</span>
+                <span class="tech-tag">MongoDB</span>
+                <span class="tech-tag">Express</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="projects" class="portfolio-section">
+      <div class="experience-grid"></div>
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title">
+            Featured <span class="highlight">Projects</span>
+          </h2>
+          <p class="section-subtitle">
+            Explore a selection of my recent work showcasing my skills in
+            development and design.
+          </p>
+        </div>
+
+        <div class="portfolio-grid">
+          <!-- Project 1 -->
+          <div class="portfolio-item">
+            <div class="portfolio-image">
+              <div class="portfolio-overlay">
+                <div class="portfolio-overlay-content">
+                  <div class="portfolio-links">
+                    <a
+                      href="https://interviewaiafrotech.netlify.app/auth"
+                      class="portfolio-link"
+                      >View Project</a
+                    >
+                    <a
+                      href="https://github.com/Esavwede/INTERVIEW_AI"
+                      class="portfolio-link"
+                      >Source Code</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="portfolio-placeholder"></div>
+            </div>
+            <div class="portfolio-content">
+              <h3 class="portfolio-title">Interview AI</h3>
+              <p class="portfolio-desc">
+                A platform that helps job seekers prepare for interviews using
+                AI
+              </p>
+              <div class="portfolio-tags">
+                <span class="tech-tag">Express</span>
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">Typescript</span>
+                <span class="tech-tag">LLMs</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="portfolio-item">
+            <div class="portfolio-image">
+              <div class="portfolio-overlay">
+                <div class="portfolio-overlay-content">
+                  <div class="portfolio-links">
+                    <a
+                      href="https://techjobber-1.onrender.com/"
+                      class="portfolio-link"
+                      >View Project</a
+                    >
+                    <a
+                      href="https://github.com/Esavwede/techjobber-1"
+                      class="portfolio-link"
+                      >Source Code</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="portfolio-placeholder"></div>
+            </div>
+            <div class="portfolio-content">
+              <h3 class="portfolio-title">Tech Jobber</h3>
+              <p class="portfolio-desc">
+                A Platform that helps job seekers find tech jobs
+              </p>
+              <div class="portfolio-tags">
+                <span class="tech-tag">Node.Js</span>
+                <span class="tech-tag">Express</span>
+                <span class="tech-tag">Mongo</span>
+                <span class="tech-tag">Javascript</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div class="portfolio-item">
+            <div class="portfolio-image">
+              <div class="portfolio-overlay">
+                <div class="portfolio-overlay-content">
+                  <div class="portfolio-links">
+                    <a
+                      href="https://github.com/Esavwede/Cheerp"
+                      class="portfolio-link"
+                      >View Project</a
+                    >
+                    <a
+                      href="https://github.com/Esavwede/Cheerp"
+                      class="portfolio-link"
+                      >Source Code</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="portfolio-placeholder"></div>
+            </div>
+            <div class="portfolio-content">
+              <h3 class="portfolio-title">Cheerp</h3>
+              <p class="portfolio-desc">
+                A chat application that allows users to connect and chat with
+                each other in real time.
+              </p>
+              <div class="portfolio-tags">
+                <span class="tech-tag">Node.Js</span>
+                <span class="tech-tag">Express</span>
+                <span class="tech-tag">Javascript</span>
+                <span class="tech-tag">Mongo</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 4 -->
+          <div class="portfolio-item">
+            <div class="portfolio-image">
+              <div class="portfolio-overlay">
+                <div class="portfolio-overlay-content">
+                  <div class="portfolio-links">
+                    <a
+                      href="https://techuni-project-production.up.railway.app/"
+                      class="portfolio-link"
+                      >View Project</a
+                    >
+                    <a
+                      href="https://github.com/Esavwede/TechUni-project"
+                      class="portfolio-link"
+                      >Source Code</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="portfolio-placeholder"></div>
+            </div>
+            <div class="portfolio-content">
+              <h3 class="portfolio-title">Smart Home IoT App</h3>
+              <p class="portfolio-desc">
+                Mobile application for controlling and monitoring smart home
+                devices with automation features and energy optimization.
+              </p>
+              <div class="portfolio-tags">
+                <span class="tech-tag">React Native</span>
+                <span class="tech-tag">GraphQL</span>
+                <span class="tech-tag">MQTT</span>
+                <span class="tech-tag">Docker</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="portfolio-cta">
+          <a href="#contact" class="btn btn-primary">Let's Discuss</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+      <div class="experience-grid"></div>
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title">
+            Get in <span class="highlight">Touch</span>
+          </h2>
+          <p class="section-subtitle">
+            Have a project in mind? Let's connect and bring your ideas to life.
+          </p>
+        </div>
+
+        <div class="contact-content">
+          <div class="contact-form">
+            <form>
+              <div class="form-group">
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  class="form-input"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  class="form-input"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <textarea
+                  placeholder="Your Message"
+                  class="form-input"
+                  rows="5"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                Send Message
+              </button>
+            </form>
+          </div>
+          <div class="contact-info">
+            <div class="info-item">
+              <h3>Email</h3>
+              <p>ogaga@ogaga.tech</p>
+            </div>
+            <div class="info-item">
+              <h3>Phone</h3>
+              <p>+234 9061644392</p>
+            </div>
+            <div class="social-links">
+              <a
+                href="https://x.com/ogagaDotTech"
+                target="_blank"
+                class="social-link"
+              >
+                <span>Twitter</span>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/ogaga-esavwede-68a09a18a/"
+                target="_blank"
+                class="social-link"
+              >
+                <span>LinkedIn</span>
+              </a>
+              <a
+                href="https://github.com/esavwede"
+                target="_blank"
+                class="social-link"
+              >
+                <span>GitHub</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+      <div class="footer-container">
+        <div class="footer-content">
+          <div class="footer-brand">
+            <h3>Ogaga</h3>
+            <p>Transforming Ideas into Digital Reality</p>
+          </div>
+          <div class="footer-social">
+            <h4>Connect</h4>
+            <div class="social-links">
+              <a href="https://twitter.com" target="_blank" class="social-link">
+                <span>Twitter</span>
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                class="social-link"
+              >
+                <span>LinkedIn</span>
+              </a>
+              <a href="https://github.com" target="_blank" class="social-link">
+                <span>GitHub</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Ogagaoghene Esavwede. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
