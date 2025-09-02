@@ -1342,12 +1342,15 @@ We’ll send updates soon."
           console.dir(formData);
           const response = fetch("https://jobrail.com.ng/postmail", {
             method: "POST",
-            body: {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
               firstName: formData.firstName,
               email: formData.email,
               lastName: formData.lastName,
               jobTitle: formData.jobTitle,
-            },
+            }),
           });
 
           // Show success view
