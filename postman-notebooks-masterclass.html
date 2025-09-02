@@ -954,7 +954,7 @@
       </div>
 
       <div class="card-content">
-        <h1 class="event-title">Tech Summit 2025</h1>
+        <h1 class="event-title">Postman Notebooks Masterclass</h1>
 
         <div class="event-date">
           <svg class="icon" fill="currentColor" viewBox="0 0 20 20">
@@ -1339,6 +1339,7 @@ We’ll send updates soon."
         submitBtn.disabled = true;
 
         try {
+          await new Promise((resolve) => setTimeout(resolve, 800));
           console.dir(formData);
           const response = fetch("https://jobrail.com.ng/postmail", {
             method: "POST",
