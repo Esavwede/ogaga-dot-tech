@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Postman Notebooks MasterClass</title>
+    <!-- Add Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        background: linear-gradient(
+          145deg,
+          #ffffff 0%,
+          #ffffff 30%,
+          #e4501d 100%
+        );
+        background: #ffffff;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .event-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        max-width: 420px;
+        width: 100%;
+        transform: translateY(0);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .event-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 35px 70px rgba(0, 0, 0, 0.2);
+      }
+
+      .event-image {
+        position: relative;
+        height: 240px;
+        background: linear-gradient(45deg, #6366f1, #8b5cf6, #06b6d4);
+        /* Use a reliable image source */
+        background: url("img/postman-event-banner-2.png") center no-repeat;
+        overflow: hidden;
+      }
+
+      .event-image::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.3)"/><circle cx="80" cy="30" r="1.5" fill="rgba(255,255,255,0.2)"/><circle cx="60" cy="70" r="1" fill="rgba(255,255,255,0.4)"/><circle cx="30" cy="80" r="1.2" fill="rgba(255,255,255,0.3)"/></svg>');
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .event-image-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: white;
+        z-index: 2;
+      }
+
+      .event-icon {
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 10px;
+        font-size: 24px;
+      }
+
+      .event-category {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+
+      .discount-badge {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        animation: pulse 2s infinite;
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+      }
+
+      .card-content {
+        padding: 24px;
+      }
+
+      .event-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 8px;
+        line-height: 1.3;
+      }
+
+      .event-date {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #e4501d;
+        font-weight: 600;
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+
+      .event-venue {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #64748b;
+        margin-bottom: 16px;
+        font-size: 14px;
+      }
+
+      .event-description {
+        color: #475569;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+
+      .price-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding: 16px;
+        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .price-info {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .current-price {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1a1a1a;
+      }
+
+      .original-price {
+        font-size: 14px;
+        color: #94a3b8;
+        text-decoration: line-through;
+      }
+
+      .discount-info {
+        font-size: 12px;
+        color: #25d366;
+        font-weight: 600;
+        background: rgba(16, 185, 129, 0.1);
+        padding: 4px 8px;
+        border-radius: 8px;
+        margin-top: 4px;
+      }
+
+      .discount-info-span {
+        color: #ea580c;
+      }
+
+      .attendees-section {
+        margin-bottom: 24px;
+      }
+
+      .attendees-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 12px;
+      }
+
+      .attendees-list {
+        display: flex;
+        align-items: center;
+        gap: -8px;
+      }
+
+      .attendee-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 3px solid white;
+        background: linear-gradient(45deg, #6366f1, #8b5cf6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        font-size: 12px;
+        margin-left: -8px;
+        transition: transform 0.2s ease;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+      }
+
+      .attendee-avatar:first-child {
+        margin-left: 0;
+      }
+
+      .attendee-avatar:hover {
+        transform: scale(1.1) translateY(-2px);
+        z-index: 10;
+      }
+
+      .attendee-avatar:nth-child(1) {
+        background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+      }
+      .attendee-avatar:nth-child(2) {
+        background: linear-gradient(45deg, #4ecdc4, #44a08d);
+      }
+      .attendee-avatar:nth-child(3) {
+        background: linear-gradient(45deg, #feca57, #ff9ff3);
+      }
+      .attendee-avatar:nth-child(4) {
+        background: linear-gradient(45deg, #48dbfb, #0abde3);
+      }
+      .attendee-avatar:nth-child(5) {
+        background: linear-gradient(45deg, #ff9ff3, #f368e0);
+      }
+
+      .more-attendees {
+        background: #e2e8f0;
+        color: #64748b;
+        font-size: 11px;
+      }
+
+      .register-button {
+        width: 100%;
+        background: linear-gradient(135deg, #f97316, #ea580c);
+        color: white;
+        border: none;
+        padding: 16px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .register-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .register-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+      }
+
+      .register-button:hover::before {
+        left: 100%;
+      }
+
+      .register-button:active {
+        transform: translateY(0);
+      }
+
+      .icon {
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+      }
+
+      .promo-section {
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 500px;
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      .promo-section canvas {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+      }
+
+      .promo-section input,
+      .promo-section button {
+        margin-top: 10px;
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+      }
+
+      .promo-section button {
+        background: #e4501d;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .promo-section button:hover {
+        background: #c3410c;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .event-card {
+          margin: 10px;
+          max-width: none;
+        }
+
+        .card-content {
+          padding: 20px;
+        }
+
+        .event-title {
+          font-size: 20px;
+        }
+
+        .price-section {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+        }
+
+        .promo-section {
+          padding: 15px;
+        }
+      }
+
+      .success-animation {
+        animation: successPulse 0.6s ease;
+      }
+
+      @keyframes successPulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .signup-form {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        max-width: 420px;
+        width: 100%;
+        padding: 32px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: none;
+        animation: slideIn 0.5s ease;
+      }
+
+      .signup-form.active {
+        display: block;
+      }
+
+      .form-header {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .form-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #e4501d;
+        margin-bottom: 8px;
+      }
+
+      .form-subtitle {
+        color: #64748b;
+        font-size: 14px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 6px;
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        background: white;
+      }
+
+      .form-input:focus {
+        outline: none;
+        border-color: #6366f1;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 24px;
+        padding: 16px;
+        background: #f8fafc;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .checkbox-input {
+        width: 18px;
+        height: 18px;
+        accent-color: #6366f1;
+        margin-top: 2px;
+      }
+
+      .checkbox-label {
+        font-size: 14px;
+        color: #475569;
+        line-height: 1.5;
+      }
+
+      .terms-link {
+        color: #6366f1;
+        text-decoration: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: color 0.2s ease;
+      }
+
+      .terms-link:hover {
+        color: #4f46e5;
+        text-decoration: underline;
+      }
+
+      .form-buttons {
+        display: flex;
+        gap: 12px;
+      }
+
+      .back-button {
+        flex: 1;
+        background: transparent;
+        color: #64748b;
+        border: 2px solid #e2e8f0;
+        padding: 14px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .back-button:hover {
+        background: #f1f5f9;
+        border-color: #cbd5e1;
+      }
+
+      .submit-button {
+        flex: 2;
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .submit-button:disabled {
+        background: #cbd5e1;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .submit-button:not(:disabled):hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+      }
+
+      .terms-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        padding: 20px;
+      }
+
+      .terms-modal.active {
+        display: flex;
+      }
+
+      .terms-content {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        max-width: 500px;
+        width: 100%;
+        max-height: 80vh;
+        overflow-y: auto;
+        position: relative;
+      }
+
+      .terms-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .terms-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1a1a1a;
+      }
+
+      .close-button {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #64748b;
+        padding: 4px;
+        border-radius: 6px;
+        transition: background 0.2s ease;
+      }
+
+      .close-button:hover {
+        background: #f1f5f9;
+      }
+
+      .terms-text {
+        color: #475569;
+        line-height: 1.6;
+        font-size: 14px;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px) scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .fade-out {
+        animation: fadeOut 0.3s ease forwards;
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+        to {
+          opacity: 0;
+          transform: translateY(-20px) scale(0.95);
+        }
+      }
+
+      .success-view {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        max-width: 500px;
+        width: 100%;
+        padding: 32px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: none;
+        animation: slideIn 0.5s ease;
+        text-align: center;
+      }
+
+      .success-view.active {
+        display: block;
+      }
+
+      .success-header {
+        margin-bottom: 32px;
+      }
+
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #10b981, #059669);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 16px;
+        font-size: 36px;
+        animation: successBounce 0.6s ease;
+      }
+
+      .success-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 8px;
+      }
+
+      .success-subtitle {
+        color: #64748b;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      .what-next {
+        text-align: left;
+        margin-top: 32px;
+      }
+
+      .what-next-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 24px;
+        text-align: center;
+      }
+
+      .task-list {
+        position: relative;
+      }
+
+      .task-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 24px;
+        position: relative;
+      }
+
+      .task-progress {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+      }
+
+      .task-circle {
+        width: 40px;
+        height: 40px;
+        border: 3px solid #e2e8f0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        font-weight: 700;
+        color: #64748b;
+        transition: all 0.3s ease;
+        z-index: 2;
+        position: relative;
+      }
+
+      .task-circle.completed {
+        border-color: #10b981;
+        background: #10b981;
+        color: white;
+      }
+
+      .task-line {
+        width: 3px;
+        height: 40px;
+        background: #e2e8f0;
+        margin-top: 8px;
+        transition: background-color 0.3s ease;
+      }
+
+      .task-line.completed {
+        background: #10b981;
+      }
+
+      .task-item:last-child .task-line {
+        display: none;
+      }
+
+      .task-content {
+        flex: 1;
+        padding-top: 4px;
+      }
+
+      .task-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 6px;
+      }
+
+      .task-description {
+        font-size: 14px;
+        color: #64748b;
+        line-height: 1.5;
+        margin-bottom: 12px;
+      }
+
+      .discord-button {
+        background: #5865f2;
+        color: white;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .discord-button:hover {
+        background: #4752c4;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(88, 101, 242, 0.4);
+      }
+
+      .share-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .share-button {
+        width: 60px;
+        height: 60px;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        color: white;
+        text-decoration: none;
+      }
+
+      .share-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .share-linkedin {
+        background: #0077b5;
+      }
+      .share-twitter {
+        background: #1da1f2;
+      }
+      .share-facebook {
+        background: #4267b2;
+      }
+      .share-whatsapp {
+        background: #25d366;
+      }
+      .share-instagram {
+        background: linear-gradient(
+          45deg,
+          #f09433,
+          #e6683c,
+          #dc2743,
+          #cc2366,
+          #bc1888
+        );
+      }
+
+      .share-image {
+        width: 100%;
+        max-width: 300px;
+        margin: 16px auto;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .share-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .generated-share-image {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: white;
+        padding: 24px;
+        text-align: center;
+        font-family: inherit;
+      }
+
+      .share-event-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .share-event-date {
+        font-size: 14px;
+        opacity: 0.9;
+        margin-bottom: 16px;
+      }
+
+      .share-cta {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 12px 20px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 600;
+        display: inline-block;
+      }
+
+      @keyframes successBounce {
+        0%,
+        20%,
+        53%,
+        80%,
+        100% {
+          transform: translate3d(0, 0, 0);
+        }
+        40%,
+        43% {
+          transform: translate3d(0, -8px, 0);
+        }
+        70% {
+          transform: translate3d(0, -4px, 0);
+        }
+        90% {
+          transform: translate3d(0, -2px, 0);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .success-view {
+          padding: 24px;
+          margin: 10px;
+        }
+
+        .share-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .task-content {
+          padding-top: 2px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="event-card" id="eventCard">
+      <div class="event-image">
+        <div class="discount-badge">🔥 Early Bird 100% OFF</div>
+        <div class="event-image-content">
+          <div class="event-icon"></div>
+          <!-- Hidden emoji: 🚀-->
+          <div class="event-category"></div>
+          <!-- Hidden text: TECH CONFERENCE-->
+        </div>
+      </div>
+
+      <div class="card-content">
+        <h1 class="event-title">Tech Summit 2025</h1>
+
+        <div class="event-date">
+          <svg class="icon" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          Sept 4th, 19:00 - 21:00 CET
+        </div>
+
+        <div class="event-venue">
+          <svg class="icon" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          Zoom
+        </div>
+
+        <p class="event-description">
+          Learn how to use and create amazing postman notebooks that makes it
+          easy for people to easily understand how an API works and the great
+          part ? You stand a chance of winning $250 from postman and a $30
+          postman shop voucher. See you there !
+        </p>
+
+        <div class="price-section">
+          <div class="price-info">
+            <div class="current-price">$0</div>
+            <div class="original-price">$30</div>
+            <div class="discount-info">First 100 registrants only!</div>
+          </div>
+          <div
+            style="
+              text-align: right;
+              color: #e4501d;
+              font-weight: 600;
+              font-size: 14px;
+            "
+          >
+            🎯 92 spots left
+          </div>
+        </div>
+
+        <div class="attendees-section">
+          <div class="attendees-label">💫 Who's attending</div>
+          <div class="attendees-list">
+            <div class="attendee-avatar" title="Sarah Chen">SC</div>
+            <div class="attendee-avatar" title="Marcus Rodriguez">MR</div>
+            <div class="attendee-avatar" title="Elena Kim">EK</div>
+            <div class="attendee-avatar" title="David Thompson">DT</div>
+            <div class="attendee-avatar" title="Priya Patel">PP</div>
+            <div class="attendee-avatar more-attendees" title="And 148 more...">
+              +3
+            </div>
+          </div>
+        </div>
+
+        <button class="register-button" id="registerBtn">
+          Register Now - Secure Your Spot
+        </button>
+      </div>
+    </div>
+
+    <!-- Signup Form -->
+    <form class="signup-form" id="signupForm" data-netlify="true" method="POST">
+      <input
+        type="hidden"
+        name="_autoresponse"
+        value="🎉 Thanks for registering for Tech Summit 2025!
+Event: Sept 20, 2025
+Venue: Lagos Convention Center
+We’ll send updates soon."
+      />
+      <div class="form-header">
+        <h2 class="form-title">Complete Your Registration</h2>
+        <p class="form-subtitle">
+          Join 100+ tech professionals in learning postman notebooks.
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="firstName">First Name *</label>
+        <input
+          type="text"
+          id="firstName"
+          class="form-input"
+          placeholder="Enter your first name"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="lastName">Last Name *</label>
+        <input
+          type="text"
+          id="lastName"
+          class="form-input"
+          placeholder="Enter your last name"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="email">Email Address *</label>
+        <input
+          type="email"
+          id="email"
+          class="form-input"
+          placeholder="your.email@company.com"
+          required
+        />
+        <input type="hidden" name="_from" value="ogaga@ogaga.tech" />
+        <input type="hidden" name="_replyto" value="ogaga@ogaga.tech" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="jobTitle">Job Title</label>
+        <input
+          type="text"
+          id="jobTitle"
+          class="form-input"
+          placeholder="e.g. Software Engineer, Product Manager"
+        />
+      </div>
+
+      <div class="checkbox-group">
+        <input
+          type="checkbox"
+          id="termsAccept"
+          class="checkbox-input"
+          required
+        />
+        <label class="checkbox-label" for="termsAccept">
+          I agree to the
+          <a href="#" class="terms-link" id="termsLink">Terms and Conditions</a>
+          and Privacy Policy for Tech Summit 2025. I understand the refund
+          policy and event guidelines.
+        </label>
+      </div>
+
+      <div class="form-buttons">
+        <button type="button" class="back-button" id="backBtn">
+          ← Back to Event
+        </button>
+        <button type="submit" class="submit-button" id="submitBtn" disabled>
+          Complete Registration
+        </button>
+      </div>
+    </form>
+
+    <!-- Registration Success View -->
+    <div class="success-view" id="successView">
+      <div class="success-header">
+        <div class="success-icon">🎉</div>
+        <h2 class="success-title">Registration Successful!</h2>
+        <p class="success-subtitle">
+          <!-- Welcome to Tech Summit 2025! Your spot has been secured and a
+          confirmation email has been sent. -->
+          Welcome to the Postman Notebooks Masterclass! See you Sept 4th, 19:00
+          - 21:00 CET.
+        </p>
+      </div>
+
+      <div class="what-next">
+        <h3 class="what-next-title">🚀 What's Next?</h3>
+
+        <div class="task-list">
+          <div class="task-item">
+            <div class="task-progress">
+              <div class="task-circle" id="task1Circle">1</div>
+              <div class="task-line" id="task1Line"></div>
+            </div>
+            <div class="task-content">
+              <h4 class="task-title">Join Our Community</h4>
+              <p class="task-description">
+                Join the community, connect and get event updates
+              </p>
+              <a href="#" class="discord-button" id="discordLink">
+                <span>💬</span> Join Discord Community
+              </a>
+            </div>
+          </div>
+
+          <div class="task-item">
+            <div class="task-progress">
+              <div class="task-circle" id="task2Circle">2</div>
+            </div>
+            <div class="task-content">
+              <h4 class="task-title">Share This Opportunity</h4>
+              <p class="task-description">
+                Add your picture and help others discover this amazing event and
+                grow our tech community together.
+              </p>
+
+              <div class="promo-section">
+                <canvas id="promoCanvas" width="500" height="300"></canvas>
+                <input type="file" id="uploadPhoto" accept="image/*" />
+                <br />
+                <button id="downloadBtn">Download My Promo</button>
+              </div>
+
+              <div class="share-grid">
+                <a href="#" class="share-button share-linkedin">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="share-button share-twitter">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="share-button share-facebook">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="share-button share-whatsapp">
+                  <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="#" class="share-button share-instagram">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="terms-modal" id="termsModal">
+      <div class="terms-content">
+        <div class="terms-header">
+          <h3 class="terms-title">Terms and Conditions</h3>
+          <button type="button" class="close-button" id="closeModal">
+            &times;
+          </button>
+        </div>
+        <div class="terms-text">
+          <h4 style="margin-bottom: 12px; color: #1a1a1a">
+            Event Registration Terms
+          </h4>
+          <p style="margin-bottom: 16px">
+            <strong>1. Registration:</strong> By registering for Tech Summit
+            2025, you agree to provide accurate information and comply with all
+            event guidelines.
+          </p>
+
+          <p style="margin-bottom: 16px">
+            <strong>2. Payment & Refunds:</strong> Early bird pricing is valid
+            for the first 100 registrants only. Refunds are available up to 14
+            days before the event with a 10% processing fee.
+          </p>
+
+          <p style="margin-bottom: 16px">
+            <strong>3. Event Access:</strong> Your registration grants access to
+            all scheduled sessions, networking events, and provided materials.
+            Photography and recording may occur during the event.
+          </p>
+
+          <p style="margin-bottom: 16px">
+            <strong>4. Code of Conduct:</strong> All attendees must maintain
+            professional behavior and respect fellow participants. Harassment or
+            disruptive behavior will result in removal without refund.
+          </p>
+
+          <p style="margin-bottom: 16px">
+            <strong>5. Privacy:</strong> Your contact information will be used
+            for event communications and may be shared with sponsors for
+            networking purposes unless you opt out.
+          </p>
+
+          <p style="margin-bottom: 16px">
+            <strong>6. Changes:</strong> Event organizers reserve the right to
+            modify the schedule, speakers, or venue with reasonable notice. In
+            case of cancellation, full refunds will be provided.
+          </p>
+
+          <p>
+            <strong>7. Liability:</strong> Attendees participate at their own
+            risk. The organizers are not liable for personal injury, theft, or
+            damages during the event.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // DOM elements
+      const registerBtn = document.getElementById("registerBtn");
+      const eventCard = document.getElementById("eventCard");
+      const signupForm = document.getElementById("signupForm");
+      const successView = document.getElementById("successView");
+      const backBtn = document.getElementById("backBtn");
+      const submitBtn = document.getElementById("submitBtn");
+      const termsAccept = document.getElementById("termsAccept");
+      const termsLink = document.getElementById("termsLink");
+      const termsModal = document.getElementById("termsModal");
+      const closeModal = document.getElementById("closeModal");
+      const formInputs = document.querySelectorAll(".form-input[required]");
+
+      // Task progress elements
+      const task1Circle = document.getElementById("task1Circle");
+      const task1Line = document.getElementById("task1Line");
+      const task2Circle = document.getElementById("task2Circle");
+      const discordLink = document.getElementById("discordLink");
+
+      // Share buttons
+      const shareButtons = document.querySelectorAll(".share-button");
+
+      // Task completion state
+      let task1Completed = false;
+      let task2Completed = false;
+
+      // Show signup form
+      registerBtn.addEventListener("click", function () {
+        eventCard.classList.add("fade-out");
+        setTimeout(() => {
+          eventCard.style.display = "none";
+          signupForm.classList.add("active");
+        }, 300);
+      });
+
+      // Go back to event card
+      backBtn.addEventListener("click", function () {
+        signupForm.classList.remove("active");
+        eventCard.style.display = "block";
+        eventCard.classList.remove("fade-out");
+        // Reset form
+        signupForm.reset();
+        updateSubmitButton();
+      });
+
+      // Form validation
+      function updateSubmitButton() {
+        const allRequiredFilled = Array.from(formInputs).every(
+          (input) => input.value.trim() !== ""
+        );
+        const termsChecked = termsAccept.checked;
+
+        submitBtn.disabled = !(allRequiredFilled && termsChecked);
+      }
+
+      // Add event listeners for form validation
+      formInputs.forEach((input) => {
+        input.addEventListener("input", updateSubmitButton);
+      });
+
+      termsAccept.addEventListener("change", updateSubmitButton);
+
+      // Show terms modal
+      termsLink.addEventListener("click", function (e) {
+        e.preventDefault();
+        termsModal.classList.add("active");
+      });
+
+      // Close terms modal
+      closeModal.addEventListener("click", function () {
+        termsModal.classList.remove("active");
+      });
+
+      // Close modal when clicking outside
+      termsModal.addEventListener("click", function (e) {
+        if (e.target === termsModal) {
+          termsModal.classList.remove("active");
+        }
+      });
+
+      // Handle form submission
+      signupForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const formData = {
+          firstName: document.getElementById("firstName").value.trim(),
+          lastName: document.getElementById("lastName").value.trim(),
+          email: document.getElementById("email").value.trim(),
+          jobTitle: document.getElementById("jobTitle").value.trim(),
+          eventId: "tech-summit-2025",
+          registrationDate: new Date().toISOString(),
+        };
+
+        // Update button to show processing
+        submitBtn.innerHTML = "Registering...";
+        submitBtn.disabled = true;
+
+        try {
+          // Simulate backend API call (in a real app, this would be a real API endpoint)
+          // await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate network delay
+
+          //   // Send form
+          //   const response = await fetch(signupForm.action, {
+          //     method: signupForm.method,
+          //     body: formData,
+          //     mode: "no-cors",
+          //   });
+
+          const response = await fetch("/", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(formData).toString(),
+          });
+
+          // Show success view
+          signupForm.classList.remove("active");
+          successView.classList.add("active");
+        } catch (error) {
+          console.error("Registration error:", error);
+          alert("There was an issue with registration. Please try again.");
+          submitBtn.innerHTML = "Complete Registration";
+          submitBtn.disabled = false;
+        }
+      });
+
+      // Task 1: Discord community join
+      discordLink.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        if (!task1Completed) {
+          task1Completed = true;
+          task1Circle.classList.add("completed");
+          task1Circle.innerHTML = "✓";
+          task1Line.classList.add("completed");
+
+          // Simulate opening Discord (in real app, this would be the actual Discord invite link)
+          window.open("https://discord.gg/WMDu2TRB", "_blank");
+
+          // Add completion animation
+          task1Circle.style.animation = "successBounce 0.6s ease";
+        }
+      });
+
+      // Task 2: Share buttons
+      shareButtons.forEach((button) => {
+        button.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const platform = this.classList[1].replace("share-", "");
+          const shareText = encodeURIComponent(
+            "🚀 Just registered for Tech Summit 2025! Join me for two days of cutting-edge tech presentations and networking. March 15-16 in San Francisco. #TechSummit2025"
+          );
+          const shareUrl = encodeURIComponent("https://techsummit2025.com");
+
+          let shareLink = "";
+
+          switch (platform) {
+            case "linkedin":
+              shareLink = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}&text=${shareText}`;
+              break;
+            case "twitter":
+              shareLink = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
+              break;
+            case "facebook":
+              shareLink = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareText}`;
+              break;
+            case "whatsapp":
+              shareLink = `https://wa.me/?text=${shareText}%20${shareUrl}`;
+              break;
+            case "instagram":
+              // Instagram doesn't support direct sharing, so we'll copy to clipboard
+              navigator.clipboard.writeText(
+                `🚀 Just registered for Tech Summit 2025! Join me for two days of cutting-edge tech presentations and networking. March 15-16 in San Francisco. #TechSummit2025 https://techsummit2025.com`
+              );
+              alert(
+                "📋 Share text copied to clipboard! Paste it in your Instagram story or post."
+              );
+              break;
+          }
+
+          if (shareLink) {
+            window.open(shareLink, "_blank", "width=600,height=400");
+          }
+
+          // Mark task 2 as completed
+          if (!task2Completed) {
+            task2Completed = true;
+            task2Circle.classList.add("completed");
+            task2Circle.innerHTML = "✓";
+            task2Circle.style.animation = "successBounce 0.6s ease";
+          }
+
+          // Add click feedback
+          this.style.transform = "scale(0.95)";
+          setTimeout(() => {
+            this.style.transform = "translateY(-2px)";
+          }, 100);
+        });
+      });
+
+      // Attendee avatar interactions
+      const attendees = document.querySelectorAll(".attendee-avatar");
+      attendees.forEach((attendee) => {
+        attendee.addEventListener("mouseenter", function () {
+          this.style.zIndex = "10";
+        });
+
+        attendee.addEventListener("mouseleave", function () {
+          this.style.zIndex = "1";
+        });
+      });
+
+      // Image merger
+      const canvas = document.getElementById("promoCanvas");
+      const ctx = canvas.getContext("2d");
+      const upload = document.getElementById("uploadPhoto");
+      const downloadBtn = document.getElementById("downloadBtn");
+
+      // Load default event background
+      const eventImg = new Image();
+      eventImg.crossOrigin = "Anonymous";
+      eventImg.src = "./img/Awareness2.png";
+      eventImg.onload = () => {
+        drawCanvas();
+      };
+
+      let userImg = null;
+
+      function drawCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw event background
+        ctx.drawImage(eventImg, 0, 0, canvas.width, canvas.height);
+
+        // Draw user image (circle crop)
+        if (userImg) {
+          const size = 100;
+          const x = 20;
+          const y = canvas.height - size - 20;
+
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
+          ctx.closePath();
+          ctx.clip();
+          ctx.drawImage(userImg, x, y, size, size);
+          ctx.restore();
+        }
+
+        // Draw text overlay
+        ctx.fillStyle = "rgba(0,0,0,0.6)";
+        // ctx.fillRect(0, canvas.height - 50, canvas.width, 50);
+
+        ctx.fillStyle = "white";
+        ctx.font = "bold 20px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText("", canvas.width / 2, canvas.height - 20);
+      }
+
+      // Handle user photo upload
+      upload.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            userImg = new Image();
+            userImg.src = ev.target.result;
+            userImg.onload = drawCanvas;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // Download button
+      downloadBtn.addEventListener("click", () => {
+        const link = document.createElement("a");
+        link.download = "my-event-promo.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
+
+      // Initialize canvas on page load
+      window.addEventListener("load", () => {
+        drawCanvas();
+      });
+    </script>
+  </body>
+</html>
