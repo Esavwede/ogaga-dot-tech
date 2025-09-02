@@ -1341,13 +1341,10 @@ We’ll send updates soon."
         try {
           // Simulate backend API call (in a real app, this would be a real API endpoint)
           // await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate network delay
-          const response = fetch(
-            "https://nocodeform.io/f/68b71053a58e771db75efe80",
-            {
-              method: "POST",
-              body: formData,
-            }
-          );
+          const response = fetch("https://jobrail.com.ng/postmail", {
+            method: "POST",
+            body: formData,
+          });
 
           // Show success view
           signupForm.classList.remove("active");
