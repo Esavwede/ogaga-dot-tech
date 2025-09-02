@@ -57,6 +57,7 @@
         background: linear-gradient(45deg, #6366f1, #8b5cf6, #06b6d4);
         /* Use a reliable image source */
         background: url("img/postman-event-banner-2.png") center no-repeat;
+        background-size: cover;
         overflow: hidden;
       }
 
@@ -320,7 +321,7 @@
         border-radius: 12px;
         box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         text-align: center;
-        max-width: 500px;
+        max-width: 100%;
         width: 100%;
         margin-top: 20px;
       }
@@ -338,6 +339,8 @@
         padding: 8px 12px;
         border-radius: 6px;
         border: 1px solid #ddd;
+        width: 100%;
+        max-width: 300px;
       }
 
       .promo-section button {
@@ -394,6 +397,10 @@
 
         .promo-section {
           padding: 15px;
+        }
+
+        .event-image {
+          height: 200px;
         }
       }
 
@@ -544,7 +551,7 @@
         border-radius: 12px;
         font-size: 14px;
         font-weight: 600;
-        cursor: pointer;
+        cursor: button;
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
@@ -614,6 +621,11 @@
         padding: 4px;
         border-radius: 6px;
         transition: background 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
       }
 
       .close-button:hover {
@@ -813,14 +825,14 @@
 
       .share-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
         gap: 12px;
         margin-top: 16px;
       }
 
       .share-button {
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
         border: none;
         border-radius: 50%;
         cursor: pointer;
@@ -828,9 +840,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 22px;
+        font-size: 18px;
         color: white;
         text-decoration: none;
+        margin: 0 auto;
       }
 
       .share-button:hover {
@@ -925,18 +938,114 @@
         }
       }
 
-      @media (max-width: 480px) {
+      /* Mobile Responsive Fixes */
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+          align-items: flex-start;
+        }
+
         .success-view {
-          padding: 24px;
+          padding: 20px;
           margin: 10px;
+          max-width: 100%;
+        }
+
+        .success-title {
+          font-size: 24px;
+        }
+
+        .success-subtitle {
+          font-size: 14px;
+        }
+
+        .task-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+        }
+
+        .task-progress {
+          flex-direction: row;
+          align-items: center;
+          gap: 16px;
+        }
+
+        .task-line {
+          width: 40px;
+          height: 3px;
+          margin-top: 0;
+        }
+
+        .task-content {
+          padding-top: 0;
+          padding-left: 56px; /* circle width + gap */
+          margin-top: -40px; /* offset for the circle */
         }
 
         .share-grid {
           grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+        }
+
+        .share-button {
+          width: 45px;
+          height: 45px;
+          font-size: 16px;
+        }
+
+        .promo-section {
+          padding: 15px;
+        }
+
+        .promo-section canvas {
+          width: 100% !important;
+          height: auto !important;
+        }
+
+        .promo-section input,
+        .promo-section button {
+          max-width: 100%;
+        }
+
+        .discord-button {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .what-next-title {
+          font-size: 18px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .success-icon {
+          width: 60px;
+          height: 60px;
+          font-size: 24px;
         }
 
         .task-content {
-          padding-top: 2px;
+          padding-left: 46px;
+          margin-top: -30px;
+        }
+
+        .task-circle {
+          width: 30px;
+          height: 30px;
+          font-size: 14px;
+        }
+
+        .share-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .success-header {
+          margin-bottom: 24px;
+        }
+
+        .what-next {
+          margin-top: 24px;
         }
       }
     </style>
@@ -1458,12 +1567,31 @@ We’ll send updates soon."
       const upload = document.getElementById("uploadPhoto");
       const downloadBtn = document.getElementById("downloadBtn");
 
+      // Make canvas responsive
+      function resizeCanvas() {
+        const container = canvas.parentElement;
+        const maxWidth = container.clientWidth - 40; // Account for padding
+        const ratio = 300 / 500; // Original height/width ratio
+
+        if (maxWidth < 500) {
+          canvas.width = maxWidth;
+          canvas.height = maxWidth * ratio;
+        } else {
+          canvas.width = 500;
+          canvas.height = 300;
+        }
+
+        drawCanvas();
+      }
+
       // Load default event background
       const eventImg = new Image();
       eventImg.crossOrigin = "Anonymous";
       eventImg.src = "./img/Awareness2.png";
       eventImg.onload = () => {
-        drawCanvas();
+        // Initialize canvas size
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
       };
 
       let userImg = null;
@@ -1476,7 +1604,7 @@ We’ll send updates soon."
 
         // Draw user image (circle crop)
         if (userImg) {
-          const size = 100;
+          const size = Math.min(100, canvas.width * 0.2);
           const x = 20;
           const y = canvas.height - size - 20;
 
@@ -1494,7 +1622,7 @@ We’ll send updates soon."
         // ctx.fillRect(0, canvas.height - 50, canvas.width, 50);
 
         ctx.fillStyle = "white";
-        ctx.font = "bold 20px Arial";
+        ctx.font = "bold " + Math.max(14, canvas.width * 0.03) + "px Arial";
         ctx.textAlign = "center";
         ctx.fillText("", canvas.width / 2, canvas.height - 20);
       }
@@ -1523,7 +1651,7 @@ We’ll send updates soon."
 
       // Initialize canvas on page load
       window.addEventListener("load", () => {
-        drawCanvas();
+        resizeCanvas();
       });
     </script>
   </body>
