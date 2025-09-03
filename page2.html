@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Postman Notebooks MasterClass</title>
+    <!-- Add Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* All existing CSS remains the same */
+      /* Only adding new styles for the calendar button */
+
+      .calendar-button {
+        background: #4285f4;
+        color: white;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .calendar-button:hover {
+        background: #3367d6;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(66, 133, 244, 0.4);
+      }
+
+      /* Adjusting the task list numbering */
+      .task-item:nth-child(1) .task-circle {
+        z-index: 4;
+      }
+      .task-item:nth-child(2) .task-circle {
+        z-index: 3;
+      }
+      .task-item:nth-child(3) .task-circle {
+        z-index: 2;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- All existing HTML remains the same until the success-view section -->
+
+    <!-- Registration Success View -->
+    <div class="success-view" id="successView">
+      <div class="success-header">
+        <div class="success-icon">🎉</div>
+        <h2 class="success-title">Registration Successful!</h2>
+        <p class="success-subtitle">
+          Welcome to the Postman Notebooks Masterclass! See you Sept 4th, 19:00
+          - 21:00 CET.
+        </p>
+      </div>
+
+      <div class="what-next">
+        <h3 class="what-next-title">🚀 What's Next?</h3>
+
+        <div class="task-list">
+          <!-- NEW: Add to Calendar as the first step -->
+          <div class="task-item">
+            <div class="task-progress">
+              <div class="task-circle" id="task1Circle">1</div>
+              <div class="task-line" id="task1Line"></div>
+            </div>
+            <div class="task-content">
+              <h4 class="task-title">Add to Your Calendar</h4>
+              <p class="task-description">
+                Add this event to your calendar so you don't forget
+              </p>
+              <button class="calendar-button" id="calendarBtn">
+                <span>📅</span> Add to Calendar
+              </button>
+            </div>
+          </div>
+
+          <!-- Previously first step, now second step -->
+          <div class="task-item">
+            <div class="task-progress">
+              <div class="task-circle" id="task2Circle">2</div>
+              <div class="task-line" id="task2Line"></div>
+            </div>
+            <div class="task-content">
+              <h4 class="task-title">Join Our Community</h4>
+              <p class="task-description">
+                Join the community, connect and get event updates
+              </p>
+              <a href="#" class="discord-button" id="discordLink">
+                <span>💬</span> Join Discord Community
+              </a>
+            </div>
+          </div>
+
+          <!-- Previously second step, now third step -->
+          <div class="task-item">
+            <div class="task-progress">
+              <div class="task-circle" id="task3Circle">3</div>
+            </div>
+            <div class="task-content">
+              <h4 class="task-title">Share This Opportunity</h4>
+              <p class="task-description">
+                Add your picture and help others discover this amazing event and
+                grow our tech community together.
+              </p>
+
+              <div class="promo-section">
+                <canvas id="promoCanvas" width="500" height="300"></canvas>
+                <input type="file" id="uploadPhoto" accept="image/*" />
+                <br />
+                <button id="downloadBtn">Download My Promo</button>
+              </div>
+
+              <div class="share-grid">
+                <a href="#" class="share-button share-linkedin">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="share-button share-twitter">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="share-button share-facebook">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="share-button share-whatsapp">
+                  <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="#" class="share-button share-instagram">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The rest of the HTML remains the same -->
+
+    <script>
+      // All existing JavaScript remains the same
+
+      // Add these variables for the new task
+      const task1Circle = document.getElementById("task1Circle");
+      const task1Line = document.getElementById("task1Line");
+      const task2Circle = document.getElementById("task2Circle");
+      const task2Line = document.getElementById("task2Line");
+      const task3Circle = document.getElementById("task3Circle");
+      const calendarBtn = document.getElementById("calendarBtn");
+
+      // Task completion state - add new task
+      let task1Completed = false;
+      let task2Completed = false;
+      let task3Completed = false;
+
+      // Calendar button functionality
+      calendarBtn.addEventListener("click", function () {
+        if (!task1Completed) {
+          task1Completed = true;
+          task1Circle.classList.add("completed");
+          task1Circle.innerHTML = "✓";
+          task1Line.classList.add("completed");
+          task1Circle.style.animation = "successBounce 0.6s ease";
+        }
+
+        // Create calendar event data
+        const eventData = {
+          title: "Postman Notebooks Masterclass",
+          description:
+            "Learn how to use and create amazing postman notebooks. You stand a chance of winning $250 from postman and a $30 postman shop voucher.",
+          location: "Zoom",
+          startTime: "2025-09-04T19:00:00+02:00", // CET is UTC+2
+          endTime: "2025-09-04T21:00:00+02:00",
+        };
+
+        // Create ICS file content
+        const icsContent = [
+          "BEGIN:VCALENDAR",
+          "VERSION:2.0",
+          "BEGIN:VEVENT",
+          "SUMMARY:" + eventData.title,
+          "DESCRIPTION:" + eventData.description,
+          "LOCATION:" + eventData.location,
+          "DTSTART:" +
+            eventData.startTime.replace(/[-:]/g, "").split("+")[0] +
+            "Z",
+          "DTEND:" + eventData.endTime.replace(/[-:]/g, "").split("+")[0] + "Z",
+          "END:VEVENT",
+          "END:VCALENDAR",
+        ].join("\n");
+
+        // Create download link
+        const blob = new Blob([icsContent], {
+          type: "text/calendar;charset=utf-8",
+        });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "Postman-Notebooks-Masterclass.ics";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+
+      // Update Discord task to be task 2
+      discordLink.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        if (!task2Completed) {
+          task2Completed = true;
+          task2Circle.classList.add("completed");
+          task2Circle.innerHTML = "✓";
+          task2Line.classList.add("completed");
+          task2Circle.style.animation = "successBounce 0.6s ease";
+        }
+
+        // Simulate opening Discord
+        window.open("https://discord.gg/WMDu2TRB", "_blank");
+      });
+
+      // Update share buttons to be task 3
+      shareButtons.forEach((button) => {
+        button.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const platform = this.classList[1].replace("share-", "");
+          const shareText = encodeURIComponent(
+            "Just registered for Postman Notebooks Masterclass! \n See you there on the 4th of September, 19:00 CET.  \n #postman-notebooks-masterclass"
+          );
+          const shareUrl = encodeURIComponent(
+            "https://ogaga.tech/postman-notebooks-masterclass"
+          );
+
+          let shareLink = "";
+
+          switch (platform) {
+            case "linkedin":
+              shareLink = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}&text=${shareText}`;
+              break;
+            case "twitter":
+              shareLink = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
+              break;
+            case "facebook":
+              shareLink = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareText}`;
+              break;
+            case "whatsapp":
+              shareLink = `https://wa.me/?text=${shareText}%20${shareUrl}`;
+              break;
+            case "instagram":
+              // Instagram doesn't support direct sharing, so we'll copy to clipboard
+              navigator.clipboard.writeText(
+                `Just registered for Postman Notebooks Masterclass! \n See you there on the 4th of September, 19:00 CET.  \n #postman-notebooks-masterclass`
+              );
+              alert(
+                "📋 Share text copied to clipboard! Paste it in your Instagram story or post."
+              );
+              break;
+          }
+
+          if (shareLink) {
+            window.open(shareLink, "_blank", "width=600,height=400");
+          }
+
+          // Mark task 3 as completed
+          if (!task3Completed) {
+            task3Completed = true;
+            task3Circle.classList.add("completed");
+            task3Circle.innerHTML = "✓";
+            task3Circle.style.animation = "successBounce 0.6s ease";
+          }
+
+          // Add click feedback
+          this.style.transform = "scale(0.95)";
+          setTimeout(() => {
+            this.style.transform = "translateY(-2px)";
+          }, 100);
+        });
+      });
+    </script>
+  </body>
+</html>

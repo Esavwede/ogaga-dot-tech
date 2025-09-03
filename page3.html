@@ -55,7 +55,9 @@
         position: relative;
         height: 240px;
         background: linear-gradient(45deg, #6366f1, #8b5cf6, #06b6d4);
+        /* Use a reliable image source */
         background: url("img/postman-event-banner-2.png") center no-repeat;
+        background-size: cover;
         overflow: hidden;
       }
 
@@ -455,13 +457,11 @@
         font-weight: 700;
         color: #e4501d;
         margin-bottom: 8px;
-        text-align: center;
       }
 
       .form-subtitle {
         color: #64748b;
         font-size: 14px;
-        text-align: center;
       }
 
       .form-group {
@@ -528,9 +528,6 @@
       .terms-link:hover {
         color: #4f46e5;
         text-decoration: underline;
-        background-color: rgba(99, 102, 241, 0.1);
-        padding: 2px 4px;
-        border-radius: 4px;
       }
 
       .form-buttons {
@@ -664,7 +661,6 @@
       }
 
       .fade-out {
-        animation: fadeOut 0.3s ease forwards;
         animation: fadeOut 0.3s ease forwards;
       }
 
@@ -1097,7 +1093,9 @@
         <div class="discount-badge">🔥 Early Bird 100% OFF</div>
         <div class="event-image-content">
           <div class="event-icon"></div>
+          <!-- Hidden emoji: 🚀-->
           <div class="event-category"></div>
+          <!-- Hidden text: TECH CONFERENCE-->
         </div>
       </div>
 
@@ -1112,7 +1110,7 @@
               clip-rule="evenodd"
             ></path>
           </svg>
-          Sept 4th, 19:00 - 20:00 CET
+          Sept 4th, 19:00 - 21:00 CET
         </div>
 
         <div class="event-venue">
@@ -1123,7 +1121,7 @@
               clip-rule="evenodd"
             ></path>
           </svg>
-          Google Meet
+          Zoom
         </div>
 
         <p class="event-description">
@@ -1176,10 +1174,10 @@
       <input
         type="hidden"
         name="_autoresponse"
-        value="🎉 Thanks for registering for Postman Notebooks Masterclass!
-Event: Sept 4th, 19:00 - 20:00 CET
-Venue: Google Meet
-We'll send updates soon."
+        value="🎉 Thanks for registering for Tech Summit 2025!
+Event: Sept 20, 2025
+Venue: Lagos Convention Center
+We’ll send updates soon."
       />
       <div class="form-header">
         <h2 class="form-title">Complete Your Registration</h2>
@@ -1243,8 +1241,8 @@ We'll send updates soon."
         <label class="checkbox-label" for="termsAccept">
           I agree to the
           <a href="#" class="terms-link" id="termsLink">Terms and Conditions</a>
-          and Privacy Policy for Postman Notebooks Masterclass. I understand the
-          refund policy and event guidelines.
+          and Privacy Policy for Tech Summit 2025. I understand the refund
+          policy and event guidelines.
         </label>
       </div>
 
@@ -1265,7 +1263,7 @@ We'll send updates soon."
         <h2 class="success-title">Registration Successful!</h2>
         <p class="success-subtitle">
           Welcome to the Postman Notebooks Masterclass! See you Sept 4th, 19:00
-          - 20:00 CET.
+          - 21:00 CET.
         </p>
       </div>
 
@@ -1284,14 +1282,9 @@ We'll send updates soon."
               <p class="task-description">
                 Add this event to your calendar so you don't forget
               </p>
-              <a
-                href="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=M2NzOGk4cTd2aW4yaTdjMjJsb2hsMmMyYXUgb2dhZ2FvZ2hlbmUuZXNhdndlZGVAbQ&tmsrc=ogagaoghene.esavwede%40gmail.com"
-                target="_blank"
-                class="calendar-button"
-                id="calendarBtn"
-              >
-                <span>📅</span> Add to Google Calendar
-              </a>
+              <button class="calendar-button" id="calendarBtn">
+                <span>📅</span> Add to Calendar
+              </button>
             </div>
           </div>
 
@@ -1366,44 +1359,45 @@ We'll send updates soon."
             Event Registration Terms
           </h4>
           <p style="margin-bottom: 16px">
-            <strong>1. Registration:</strong> By registering for Postman
-            Notebooks Masterclass, you agree to provide accurate information and
-            comply with all event guidelines.
+            <strong>1. Registration:</strong> By registering for Tech Summit
+            2025, you agree to provide accurate information and comply with all
+            event guidelines.
           </p>
 
           <p style="margin-bottom: 16px">
-            <strong>2. Payment & Refunds:</strong> This is a free event. No
-            payment is required.
+            <strong>2. Payment & Refunds:</strong> Early bird pricing is valid
+            for the first 100 registrants only. Refunds are available up to 14
+            days before the event with a 10% processing fee.
           </p>
 
           <p style="margin-bottom: 16px">
             <strong>3. Event Access:</strong> Your registration grants access to
-            the scheduled session. The Meet link will be sent to your email
-            before the event.
+            all scheduled sessions, networking events, and provided materials.
+            Photography and recording may occur during the event.
           </p>
 
           <p style="margin-bottom: 16px">
             <strong>4. Code of Conduct:</strong> All attendees must maintain
             professional behavior and respect fellow participants. Harassment or
-            disruptive behavior will result in removal.
+            disruptive behavior will result in removal without refund.
           </p>
 
           <p style="margin-bottom: 16px">
             <strong>5. Privacy:</strong> Your contact information will be used
-            for event communications and will not be shared with third parties
-            without your consent.
+            for event communications and may be shared with sponsors for
+            networking purposes unless you opt out.
           </p>
 
           <p style="margin-bottom: 16px">
             <strong>6. Changes:</strong> Event organizers reserve the right to
-            modify the schedule or speakers with reasonable notice. In case of
-            cancellation, notifications will be sent.
+            modify the schedule, speakers, or venue with reasonable notice. In
+            case of cancellation, full refunds will be provided.
           </p>
 
           <p>
             <strong>7. Liability:</strong> Attendees participate at their own
-            risk. The organizers are not liable for technical issues during the
-            virtual event.
+            risk. The organizers are not liable for personal injury, theft, or
+            damages during the event.
           </p>
         </div>
       </div>
@@ -1503,7 +1497,7 @@ We'll send updates soon."
           lastName: document.getElementById("lastName").value.trim(),
           email: document.getElementById("email").value.trim(),
           jobTitle: document.getElementById("jobTitle").value.trim(),
-          eventId: "postman-notebooks-masterclass",
+          eventId: "tech-summit-2025",
           registrationDate: new Date().toISOString(),
         };
 
@@ -1547,6 +1541,43 @@ We'll send updates soon."
           task1Line.classList.add("completed");
           task1Circle.style.animation = "successBounce 0.6s ease";
         }
+
+        // Create calendar event data
+        const eventData = {
+          title: "Postman Notebooks Masterclass",
+          description:
+            "Learn how to use and create amazing postman notebooks. You stand a chance of winning $250 from postman and a $30 postman shop voucher.",
+          location: "Zoom",
+          startTime: "2025-09-04T19:00:00+02:00", // CET is UTC+2
+          endTime: "2025-09-04T21:00:00+02:00",
+        };
+
+        // Create ICS file content
+        const icsContent = [
+          "BEGIN:VCALENDAR",
+          "VERSION:2.0",
+          "BEGIN:VEVENT",
+          "SUMMARY:" + eventData.title,
+          "DESCRIPTION:" + eventData.description,
+          "LOCATION:" + eventData.location,
+          "DTSTART:" +
+            eventData.startTime.replace(/[-:]/g, "").split("+")[0] +
+            "Z",
+          "DTEND:" + eventData.endTime.replace(/[-:]/g, "").split("+")[0] + "Z",
+          "END:VEVENT",
+          "END:VCALENDAR",
+        ].join("\n");
+
+        // Create download link
+        const blob = new Blob([icsContent], {
+          type: "text/calendar;charset=utf-8",
+        });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "Postman-Notebooks-Masterclass.ics";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       });
 
       // Task 2: Discord community join
@@ -1572,7 +1603,7 @@ We'll send updates soon."
 
           const platform = this.classList[1].replace("share-", "");
           const shareText = encodeURIComponent(
-            "Just registered for Postman Notebooks Masterclass! \n See you there on the 4th of September, 19:00 - 20:00 CET.  \n #postman-notebooks-masterclass"
+            "Just registered for Postman Notebooks Masterclass! \n See you there on the 4th of September, 19:00 CET.  \n #postman-notebooks-masterclass"
           );
           const shareUrl = encodeURIComponent(
             "https://ogaga.tech/postman-notebooks-masterclass"
@@ -1596,7 +1627,7 @@ We'll send updates soon."
             case "instagram":
               // Instagram doesn't support direct sharing, so we'll copy to clipboard
               navigator.clipboard.writeText(
-                `Just registered for Postman Notebooks Masterclass! \n See you there on the 4th of September, 19:00 - 20:00 CET.  \n #postman-notebooks-masterclass`
+                `Just registered for Postman Notebooks Masterclass! \n See you there on the 4th of September, 19:00 CET.  \n #postman-notebooks-masterclass`
               );
               alert(
                 "📋 Share text copied to clipboard! Paste it in your Instagram story or post."
@@ -1662,8 +1693,6 @@ We'll send updates soon."
       // Load default event background
       const eventImg = new Image();
       eventImg.crossOrigin = "Anonymous";
-      // eventImg.src =
-      // "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='300' viewBox='0 0 500 300'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='50%25' stop-color='%238b5cf6'/%3E%3Cstop offset='100%25' stop-color='%2306b6d4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='500' height='300' fill='url(%23a)'/%3E%3Ctext x='250' y='150' font-family='Arial' font-size='24' fill='white' text-anchor='middle'%3EPostman Notebooks Masterclass%3C/text%3E%3C/svg%3E";
       eventImg.src = "./img/Awareness2.png";
       eventImg.onload = () => {
         // Initialize canvas size
@@ -1696,16 +1725,12 @@ We'll send updates soon."
 
         // Draw text overlay
         ctx.fillStyle = "rgba(0,0,0,0.6)";
-        //ctx.fillRect(0, canvas.height - 50, canvas.width, 50);
+        // ctx.fillRect(0, canvas.height - 50, canvas.width, 50);
 
         ctx.fillStyle = "white";
         ctx.font = "bold " + Math.max(14, canvas.width * 0.03) + "px Arial";
         ctx.textAlign = "center";
-        ctx.fillText(
-          "Postman Notebooks Masterclass - Sept 4th",
-          canvas.width / 2,
-          canvas.height - 20
-        );
+        ctx.fillText("", canvas.width / 2, canvas.height - 20);
       }
 
       // Handle user photo upload
